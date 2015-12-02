@@ -5,6 +5,8 @@ import uuid
 
 import zmq
 import ujson as json
+import signal
+import sys
 
 def client(pattern=zmq.DEALER, addr='tcp://localhost:7000'):
     c = zmq.Context()
@@ -12,6 +14,12 @@ def client(pattern=zmq.DEALER, addr='tcp://localhost:7000'):
     sock.connect(addr)
     return sock
 
+def signal_handler(signal, frame):
+	print("SIGINT used, Exiting")
+	sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+signal.pause()
 
 def run(sock, req='hello world'):
 
