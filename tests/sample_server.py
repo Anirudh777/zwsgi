@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import time
+import signal
+import sys
+
 from flask import Flask, request
 app = Flask(__name__)
 
@@ -20,6 +23,13 @@ def hello_world():
     """
     return 'Hello World!'
 
+
+def signal_handler(signal, frame):
+	print("Exiting")
+	sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+signal.sleep()
 
 def main():
     server = WSGIServer(('127.0.0.1', 7000), app)
