@@ -14,6 +14,7 @@ def client(pattern=zmq.DEALER, addr='tcp://localhost:7000'):
     sock.connect(addr)
     return sock
 
+#sigint handler
 def signal_handler(signal, frame):
 	print("SIGINT used, Exiting")
 	sys.exit(0)
